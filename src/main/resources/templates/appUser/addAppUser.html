@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title th:utext="${title}"></title>
+<meta charset="UTF-8">
+<link th:rel="stylesheet"
+	th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} " />
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css"
+	rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+</head>
+<body>
+	<div class="col-3"></div>
+	<div class="container col-6">
+		<h1>Tạo tài khoản</h1>
+		<div class="col-md-auto">
+
+			<form action="#" th:action="@{/saveAppUser}" th:object="${appUser}"
+				method="post">
+				<label for="name">Tên tài khoản : </label> 
+				<input type="text" th:field="*{username}" id="username" placeholder="Điền tên tài khoản">
+					<span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
+				<br>
+				
+				<label for="password">Mật khẩu : </label>
+				<input type="password" th:field="*{encrytedPassword}" id="encrytedPassword" placeholder="Điền mật khẩu">
+					<span th:if="${#fields.hasErrors('encrytedPassword')}" th:errors="*{encrytedPassword}"></span>
+				<br>
+				
+				<label for="email">Địa chỉ email : </label>
+				<input type="email" th:field="*{email}" id="email" placeholder="Địa chỉ email">
+					<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+				<br>
+				
+				@gmail.com
+				<!-- <input type="submit" value="Tạo mới"> -->
+				<button type="button" class="btn btn-success" id="submitAppUser" >Create</button>
+			</form>
+		</div>
+	</div>
+
+	<script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
+	<script th:src="@{/webjars/popper.js/1.12.9-1/umd/popper.min.js}"></script>
+	<script th:src="@{/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js}"></script>
+	<script type="text/javascript">
+    $(document).ready(function() {
+
+        $("#submitAppUser").on("click",function() {
+            var appUser = {
+            	username:$('#username').val(),
+            	encrytedPassword:$('#encrytedPassword').val(),
+            	email:$('#email').val(),
+            };
+
+            $.ajax({
+                url : 'http://localhost:8080/saveAppUser',
+                type : 'POST',
+                data : JSON.stringify(appUser),
+                processData: false,
+                contentType: "application/json",
+                success : function(data) {
+                    console.log(data);
+                    toastr.success('Tạo mới thành công', 'Lêu lêu');
+                },
+                error:function () {
+                    toastr.error('Có lỗi xảy ra . Xin vui lòng thử lại', 'Inconceivable!')
+                }
+            });
+        });
+
+    });
+</script>
+</body>
+</html>

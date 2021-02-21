@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title th:utext="${title}"></title>
+<meta charset="UTF-8">
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css"
+	rel="stylesheet" type="text/css" />
+
+<link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet"
+	media="screen" />
+
+<script th:src="@{/jquery/jquery.min.js}"></script>
+<script th:src="@{/popper/popper.min.js}"></script>
+<script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+</head>
+<body>
+	<!-- Include _menu.html -->
+	<th:block th:include="/_menu"></th:block>
+
+	<h2>Pitch Page</h2>
+	<b>This is pitch page!</b>
+
+	<br />
+	<a type="button" th:href="@{/createpitch?id={id}(id=-1)}" class="btn pull-left"><i
+		class="fas fa-plus-circle"></i>Thêm sân mới</a>
+	<br />
+
+	<table border="1px solid">
+		<tr>
+			<th>STT</th>
+			<th>Tên sân</th>
+			<th>Người đặt</th>
+		</tr>
+		<tr th:each="pitch, state : ${listPitch}">
+			<input type="hidden" th:value="${pitch.pitchId}" />
+			<td th:utext="${state.count}"></td>
+			<td><p th:utext="${pitch.name}"></p></td>
+			
+			
+			<!-- <td th:if="${pitch.appUser != null}">
+				<p th:utext="${pitch.appUser.userName}"></p>
+			</td>
+			<td th:if="${pitch.appUser == null}">No</td> -->
+			
+			
+			<td style="white-space: nowrap"><a
+				th:href="@{/pitchSchedule?id={id}(id=${pitch.pitchId})}">
+					Đặt sân</a></td>
+			<td>
+			<td style="white-space: nowrap"><a
+				th:href="@{/detailpitch?id={id}(id=${pitch.pitchId})}"> Chi tiết</a></td>
+			<td>
+			<td style="white-space: nowrap"><a type="button"
+				th:href="@{/editpitch?id={id}(id=${pitch.pitchId})}"><i
+					class="fas fa-pencil-alt"></i> Sửa sân</a></td>
+
+			<td>
+				<button data-toggle="modal" data-target="#modal-warning"
+					th:attr="data-target='#modal-warning'+${pitch.pitchId}">
+					<i class="fas fa-trash-alt"></i> Xóa sân</span>
+				</button>
+			</td>
+
+			<div class="modal modal-warning fade in"
+				th:id="modal-warning+${pitch.pitchId}">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">X</span>
+							</button>
+							<h5 class="modal-title">Xóa sân bóng</h5>
+						</div>
+						<div class="modal-body">
+							<h3>Ban có chắc chắn xóa sân này chứ?</h3>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-outline pull-left"
+								data-dismiss="modal">Close</button>
+							<a class="btn btn-outline"
+								th:href="@{/deletepitch?id={id}(id=${pitch.pitchId})}"><i
+								class="fa fa-check"></i>&nbsp;Yes</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</tr>
+	</table>
+</body>
+
+</html>

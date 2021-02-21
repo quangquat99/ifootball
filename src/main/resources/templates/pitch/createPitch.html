@@ -1,0 +1,118 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title th:utext="${title}"></title>
+<meta charset="UTF-8">
+<link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet"
+	media="screen" />
+
+<script th:src="@{/jquery/jquery.min.js}"></script>
+<script th:src="@{/popper/popper.min.js}"></script>
+<script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+
+</head>
+<body>
+	<div class="col-3"></div>
+	<div class="container col-6">
+		<h1>Tạo sân mới</h1>
+		<div class="col-md-auto">
+
+			<form action="#" th:action="@{/save}" th:object="${pitch}"
+				method="post">
+				
+				<input type="hidden" th:field="*{pitchId}" th:value="${pitch.getPitchId()}" id="pitchId">
+				
+				<label for="name">Tên sân : </label> 
+				<input type="text" th:field="*{name}" id="name" placeholder="Điền tên sân">
+					<span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+				<br>
+				
+				<label for="email">Email : </label> 
+				<input type="text" th:field="*{email}" id="email" placeholder="Email">
+					<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+				<br>
+				
+				<label for="quantity">Số lượng sân : </label> 
+				<input type="number" th:field="*{quantity}" id="quantity" placeholder="Số lượng sân">
+					<span th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}"></span>
+				<br>
+				
+				<label for="description">Mô tả chung : </label> 
+				<input type="text" th:field="*{description}" id="description" placeholder="Mô tả chung">
+					<span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
+				<br>
+				
+				<label for="address">Địa chỉ : </label> 
+				<input type="text" th:field="*{address}" id="address" placeholder="Địa chỉ">
+					<span th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></span>
+				<br>
+				
+				<label for="image">Ảnh : </label> 	
+				<input type="text" th:field="*{image}" id="image" placeholder="Ảnh">
+					<span th:if="${#fields.hasErrors('image')}" th:errors="*{image}"></span>
+				<br>
+					
+				<label for="phonenumber">SĐT : </label> 
+				<input type="text" th:field="*{phonenumber}" id="phonenumber" placeholder="SĐT">
+					<span th:if="${#fields.hasErrors('phonenumber')}" th:errors="*{phonenumber}"></span>
+				<br>
+				
+				<!-- <label for="updated_at">Ngày cập nhật : </label> 
+				<input type="date" th:field="*{updated_at}" id="updated_at" placeholder="Ngày cập nhật">
+					<span th:if="${#fields.hasErrors('updated_at')}" th:errors="*{updated_at}"></span>
+				<br> -->
+				
+				<label for="price">Giá : </label>
+				<input type="number" th:field="*{price}" id="price" placeholder="Giá">
+					<span th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span> 
+				<br>
+
+
+				<div th:if="${pitch.getPitchId() == null}">
+					<input type="submit" value="Tạo sân mới">
+				</div>
+				<div th:if="${pitch.getPitchId() != null}">
+					<input type="submit" value="Sửa sân">
+				</div>
+				
+				<button type="button" class="btn btn-success" id="submitPitch" >Create</button>
+			</form>
+		</div>
+	</div>
+	
+	<script type="text/javascript">
+    $(document).ready(function() {
+
+        $("#submitPitch").on("click",function() {
+            var pitch = {
+                name:$('#name').val(),
+                email:$('#email').val(),
+                quantity:$('#quantity').val(),
+                description:$('#description').val(),
+                address:$('#address').val(),
+                image:$('#image').val(),
+                phonenumber:$('#phonenumber').val(),
+                price:$('#price').val(),
+            };
+
+            console.log(pitch);
+            $.ajax({
+                url : 'http://localhost:8080/save',
+                type : 'POST',
+                data : JSON.stringify(pitch),
+                processData: false,
+                contentType: "application/json",
+                success : function(data) {
+                    console.log(data);
+                    toastr.success('Tạo sân mới thành công', 'Lêu lêu');
+                },
+                error:function () {
+                    toastr.error('Có lỗi xảy ra . Xin vui lòng thử lại', 'Inconceivable!')
+                }
+            });
+        });
+
+    });
+</script>
+</body>
+</html>
