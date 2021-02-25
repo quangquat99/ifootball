@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import quang.ph.ifootball.entity.Pitch;
 import quang.ph.ifootball.entity.PitchBooking;
 import quang.ph.ifootball.service.PitchBookingService;
 
@@ -26,13 +27,21 @@ public class PitchBookingController {
 		if(pitchId == null) {
 			return "pitchScheduleInit";
 		}
-		return "/pitchbooking//pitchSchedule";
+		return "/pitchbooking/pitchSchedule";
 	}
 	
+	@RequestMapping(value = "/createPitchBooking")
+	public String addPitchBooking(Model model, Principal principal) {
+		model.addAttribute("pitchBooking", new PitchBooking());
+		return "/pitchbooking/pitchBookingDetail";
+	}
+	
+	/*
 	@RequestMapping(value = "createPitchBooking", method = RequestMethod.POST)
 	public String savePitch(@Validated @RequestBody PitchBooking pitchBooking) {
 		
 		pitchBookingService.save(pitchBooking);
-		return "redirect:/pitch";
+		return "redirect:pitchSchedule";
 	}
+	*/
 }

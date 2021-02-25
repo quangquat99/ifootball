@@ -1,10 +1,60 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title th:utext="${title}"></title>
+<meta charset="UTF-8">
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css"
+	rel="stylesheet" type="text/css" />
+
+<link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet"
+	media="screen" />
+
+<script th:src="@{/jquery/jquery.min.js}"></script>
+<script th:src="@{/popper/popper.min.js}"></script>
+<script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+
+
 </head>
 <body>
 
+	<h2>ADD Pitch Booking</h2>
+
+	<br />
+	<div class="col-3"></div>
+	<div class="container col-6">
+		<h1>
+			Pitch Booking Detail <span></span>
+		</h1>
+		<h1>Điền thông tin</h1>
+		<div class="col-md-auto">
+
+			<form action="#" th:action="@{/save}" th:object="${pitchBooking}"
+				method="post">
+				
+				<input type="hidden" th:field="*{pitchBookingKey}" th:value="${pitchBooking.getPitchBookingKey()}" id="pitchBookingKey">
+					
+				<label for="note">Note : </label> 
+				<input type="text" th:field="*{note}" id="note" placeholder="note">
+					<span th:if="${#fields.hasErrors('note')}" th:errors="*{note}"></span>
+				<br>
+				
+				<!-- <label for="updated_at">Ngày cập nhật : </label> 
+				<input type="date" th:field="*{updated_at}" id="updated_at" placeholder="Ngày cập nhật">
+					<span th:if="${#fields.hasErrors('updated_at')}" th:errors="*{updated_at}"></span>
+				<br> -->
+				
+				<label for="price">Giá : </label>
+				<input type="number" th:field="*{price}" id="price" placeholder="Giá">
+					<span th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span> 
+				<br>
+				
+				<button type="button" class="btn btn-success" id="submitPitchBooking" >Create</button>
+			</form>
+		</div>
+
+
+	</div>
 </body>
+
 </html>

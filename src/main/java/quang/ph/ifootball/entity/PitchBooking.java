@@ -1,13 +1,11 @@
 package quang.ph.ifootball.entity;
 
-import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
@@ -25,7 +23,7 @@ import lombok.Setter;
 public class PitchBooking {
 	
 	@EmbeddedId
-    private PitchUserKey id;
+    private PitchBookingKey pitchBookingKey;
 	
 	@Column(name = "pitch_no", nullable = false)
 	private int pitch_no;
