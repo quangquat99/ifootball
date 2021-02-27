@@ -3,9 +3,11 @@ package quang.ph.ifootball.entity;
 import java.util.Date;
 
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
@@ -22,8 +24,10 @@ import lombok.Setter;
 @Setter
 public class PitchBooking {
 	
-	@EmbeddedId
-    private PitchBookingKey pitchBookingKey;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "pitch_booking_id", nullable = false)
+	private Long pitchBookingId;
 	
 	@Column(name = "pitch_no", nullable = false)
 	private int pitch_no;

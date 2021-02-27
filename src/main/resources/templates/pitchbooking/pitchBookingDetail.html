@@ -32,7 +32,7 @@
 			<form action="#" th:action="@{/save}" th:object="${pitchBooking}"
 				method="post">
 				
-				<input type="hidden" th:field="*{pitchBookingKey}" th:value="${pitchBooking.getPitchBookingKey()}" id="pitchBookingKey">
+				<input type="hidden" th:field="*{pitchBookingId}" th:value="${pitchBooking.getPitchBookingId()}" id="pitchBookingId">
 					
 				<label for="note">Note : </label> 
 				<input type="text" th:field="*{note}" id="note" placeholder="note">
@@ -44,12 +44,49 @@
 					<span th:if="${#fields.hasErrors('updated_at')}" th:errors="*{updated_at}"></span>
 				<br> -->
 				
+				<label for="price">Ngày : </label>
+				<input type="date" value="2016-08-01"> 
+				<br>
+				
+				<label for="price">Khung giờ : </label>
+				<select id="time" name="time">
+					<option value="0">0</option>
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="100">100</option>
+				</select> 
+				<br>
+				
 				<label for="price">Giá : </label>
 				<input type="number" th:field="*{price}" id="price" placeholder="Giá">
 					<span th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span> 
 				<br>
 				
 				<button type="button" class="btn btn-success" id="submitPitchBooking" >Create</button>
+
+				<div class="modal modal-warning fade in">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">X</span>
+								</button>
+								<h5 class="modal-title">Xác nhận đặt sân</h5>
+							</div>
+							<div class="modal-body">
+								<h3>bla bla</h3>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-outline pull-left"
+									data-dismiss="modal">Close</button>
+								<a class="btn btn-outline"
+									th:href="@{/deletepitch?id={id}(id=${pitch.pitchId})}"><i
+									class="fa fa-check"></i>&nbsp;Đặt sân bóng</a>
+							</div>
+						</div>
+					</div>
+				</div>
 			</form>
 		</div>
 
