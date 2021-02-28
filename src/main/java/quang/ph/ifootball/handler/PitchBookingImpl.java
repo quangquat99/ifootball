@@ -27,7 +27,7 @@ public class PitchBookingImpl {
 
 	}
 
-	/*
+	
 	public PitchBooking findById(Long id) {
 		try {
 			PitchBooking pitchBooking = repository.findById(id).get();
@@ -38,7 +38,7 @@ public class PitchBookingImpl {
 			return null;
 		}
 	}
-	*/
+	
 
 	public void save(PitchBooking pitchBooking) {
 		try {

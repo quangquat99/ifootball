@@ -26,7 +26,7 @@ public class AppUserController {
 	@RequestMapping(value = "/addAppUser")
 	public String addAppUser(Model model, Principal principal) {
 		model.addAttribute("appUser", new AppUser());
-		return "/appUser//addAppUser";
+		return "/appUser/addAppUser";
 	}
 
 	// truyen kieur json

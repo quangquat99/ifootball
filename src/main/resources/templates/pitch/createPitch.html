@@ -62,9 +62,9 @@
 					<span th:if="${#fields.hasErrors('updated_at')}" th:errors="*{updated_at}"></span>
 				<br> -->
 				
-				<label for="price">Giá : </label>
-				<input type="number" th:field="*{price}" id="price" placeholder="Giá">
-					<span th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span> 
+				<label for="cost">Giá : </label>
+				<input type="number" th:field="*{cost}" id="cost" placeholder="Giá">
+					<span th:if="${#fields.hasErrors('cost')}" th:errors="*{cost}"></span> 
 				<br>
 
 
@@ -92,7 +92,7 @@
                 address:$('#address').val(),
                 image:$('#image').val(),
                 phonenumber:$('#phonenumber').val(),
-                price:$('#price').val(),
+                cost:$('#cost').val(),
             };
 
             console.log(pitch);

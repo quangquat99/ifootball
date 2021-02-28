@@ -75,7 +75,7 @@ public class PitchController {
 	public String pitchDetail(Model model, Principal principal, @RequestParam("id") Long pitchId) {
 		Pitch pitch = pitchService.findById(pitchId);
 		model.addAttribute("pitch", pitch);
-		return "/pitch//detailpitch";
+		return "/pitch/detailpitch";
 	}
 
 	@RequestMapping(value = "/createpitch{id}", method = RequestMethod.GET)
@@ -88,7 +88,7 @@ public class PitchController {
 			model.addAttribute("pitch", pitch);
 		}
 		
-		return "/pitch//createPitch";
+		return "/pitch/createPitch";
 	}
 
 	@RequestMapping(value = "/deletepitch{id}", method = RequestMethod.GET)

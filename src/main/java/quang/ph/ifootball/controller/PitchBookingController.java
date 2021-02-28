@@ -1,8 +1,11 @@
 package quang.ph.ifootball.controller;
 
 import java.security.Principal;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
@@ -11,15 +14,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import quang.ph.ifootball.entity.Pitch;
+import quang.ph.ifootball.dto.PitchBookingDTO;
+import quang.ph.ifootball.entity.AppUser;
 import quang.ph.ifootball.entity.PitchBooking;
+import quang.ph.ifootball.service.AppUserService;
 import quang.ph.ifootball.service.PitchBookingService;
 
 @Controller
+@RequestMapping("/pitchbooking")
 public class PitchBookingController {
 	
 	@Autowired
 	private PitchBookingService pitchBookingService;
+	
+	@Autowired
+	private AppUserService appUserService;
 	
 	@RequestMapping(value = "/pitchSchedule", method = RequestMethod.GET)
 	public String deletePitch(Model model, Principal principal, @RequestParam("id") Long pitchId) {
@@ -27,13 +36,22 @@ public class PitchBookingController {
 		if(pitchId == null) {
 			return "pitchScheduleInit";
 		}
-		return "/pitchbooking/pitchSchedule";
+		model.addAttribute("pitchId", pitchId);
+		return "pitchbooking/pitchSchedule";
 	}
 	
 	@RequestMapping(value = "/createPitchBooking")
-	public String addPitchBooking(Model model, Principal principal) {
+	public String addPitchBooking(Model model, Principal principal, @RequestParam("id") Long pitchId) {
 		model.addAttribute("pitchBooking", new PitchBooking());
-		return "/pitchbooking/pitchBookingDetail";
+		model.addAttribute("pitchId", pitchId);
+		
+		AppUser appUser = new AppUser();
+		if (principal != null) {
+			User loginedUser = (User) ((Authentication) principal).getPrincipal();
+			appUser = appUserService.findUserAccount(loginedUser.getUsername());
+		}
+		model.addAttribute("appUserId", appUser.getUserId());
+		return "pitchbooking/pitchBookingDetail";
 	}
 	
 	/*
@@ -44,4 +62,12 @@ public class PitchBookingController {
 		return "redirect:pitchSchedule";
 	}
 	*/
+	
+	@RequestMapping(value = "savePitchBooking", method = RequestMethod.POST)
+	public String savePitch(@Validated @RequestBody PitchBookingDTO pitchBookingDTO) {
+		
+		
+//		pitchBookingService.bookPitch(pitchBooking);
+		return "redirect:/pitch";
+	}
 }

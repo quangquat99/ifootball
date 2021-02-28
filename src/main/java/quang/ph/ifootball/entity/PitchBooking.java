@@ -29,9 +29,6 @@ public class PitchBooking {
 	@Column(name = "pitch_booking_id", nullable = false)
 	private Long pitchBookingId;
 	
-	@Column(name = "pitch_no", nullable = false)
-	private int pitch_no;
-
 	@Column(name = "time_start", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date time_start;
@@ -39,6 +36,9 @@ public class PitchBooking {
 	@Column(name = "time_finish", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date time_finish;
+	
+	private Date date;
+	private int timeKey;
 
 	@Column(name = "price", nullable = false)
 	private double price;

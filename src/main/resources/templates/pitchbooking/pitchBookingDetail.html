@@ -21,6 +21,7 @@
 	<h2>ADD Pitch Booking</h2>
 
 	<br />
+	
 	<div class="col-3"></div>
 	<div class="container col-6">
 		<h1>
@@ -28,11 +29,13 @@
 		</h1>
 		<h1>Điền thông tin</h1>
 		<div class="col-md-auto">
-
-			<form action="#" th:action="@{/save}" th:object="${pitchBooking}"
+			<!-- th:action="@{/savePitchBooking}" -->
+			<form action="#" th:action="@{/savePitchBooking}" th:object="${pitchBooking}"
 				method="post">
 				
-				<input type="hidden" th:field="*{pitchBookingId}" th:value="${pitchBooking.getPitchBookingId()}" id="pitchBookingId">
+				<!-- <input type="hidden" th:field="*{pitchBookingId}" th:value="${pitchBooking.getPitchBookingId()}" id="pitchBookingId"> -->
+				<input type="hidden" th:value="${pitchId}" id="pitchId">
+				<input type="hidden" th:value="${appUserId}" id="appUserId">
 					
 				<label for="note">Note : </label> 
 				<input type="text" th:field="*{note}" id="note" placeholder="note">
@@ -45,11 +48,11 @@
 				<br> -->
 				
 				<label for="price">Ngày : </label>
-				<input type="date" value="2016-08-01"> 
+				<input type="date" value="2016-08-01" id="date"> 
 				<br>
 				
 				<label for="price">Khung giờ : </label>
-				<select id="time" name="time">
+				<select id="timeKey" name="timeKey">
 					<option value="0">0</option>
 					<option value="1">1</option>
 					<option value="2">2</option>
@@ -59,39 +62,91 @@
 				
 				<label for="price">Giá : </label>
 				<input type="number" th:field="*{price}" id="price" placeholder="Giá">
-					<span th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span> 
+					<span th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
+					<div id="price">0.000</div> 
 				<br>
 				
-				<button type="button" class="btn btn-success" id="submitPitchBooking" >Create</button>
+				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+    				Open modal
+  				</button>
+				
+			</form>
+			<div class="modal modal-warning fade in"
+				id="myModal">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title">Xác nhận đặt sân</h5>
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">X</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<h3>bla bla</h3>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-outline pull-left"
+								data-dismiss="modal">Close</button>
+							<button type="button" class="btn btn-success"
+								id="submitPitchBooking">Create</button>
 
-				<div class="modal modal-warning fade in">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal"
-									aria-label="Close">
-									<span aria-hidden="true">X</span>
-								</button>
-								<h5 class="modal-title">Xác nhận đặt sân</h5>
-							</div>
-							<div class="modal-body">
-								<h3>bla bla</h3>
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-outline pull-left"
-									data-dismiss="modal">Close</button>
-								<a class="btn btn-outline"
+							<!-- <a class="btn btn-outline"
 									th:href="@{/deletepitch?id={id}(id=${pitch.pitchId})}"><i
-									class="fa fa-check"></i>&nbsp;Đặt sân bóng</a>
-							</div>
+									class="fa fa-check"></i>&nbsp;Đặt sân bóng</a> -->
+
 						</div>
 					</div>
 				</div>
-			</form>
+			</div>
 		</div>
 
 
 	</div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+
+        $("#submitPitchBooking").on("click",function() {
+        	var pitch = {
+        		pitchId:$('#pitchId').val(),		
+        	};
+        	
+			var user = {
+				userId:$('#appUserId').val(),
+        	};
+        	
+            var pitchBooking = {
+            	pitch:pitch,
+            	user:user,
+            	note:$('#note').val(),
+            	price:$('#price').val(),
+            };
+            
+            var myData = {
+            	pitchBooking:pitchBooking,
+               	date:$('#date').val(),
+               	timeKey:$('#timeKey').val(),
+            };
+            console.log(myData);
+            $.ajax({
+                url : 'http://localhost:8080/pitchbooking/savePitchBooking',
+                type : 'POST',
+                data : JSON.stringify(myData),
+                processData: false,
+                contentType: "application/json",/* 
+                success : function(myData) {
+                    console.log(myData);
+                    toastr.success('Thành công', 'Lêu lêu');
+                },
+                error:function () {
+                    toastr.error('Có lỗi xảy ra . Xin vui lòng thử lại', 'Inconceivable!')
+                } */
+            });
+        });
+
+    });
+</script>
 </body>
 
 </html>

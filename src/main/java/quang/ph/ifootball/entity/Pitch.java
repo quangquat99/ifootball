@@ -1,12 +1,16 @@
 package quang.ph.ifootball.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -58,6 +62,9 @@ public class Pitch {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date updated_at;
 
-	@Column(name = "price", nullable = false)
-	private double price;
+	@Column(name = "cost", nullable = false)
+	private double cost;
+	
+	@OneToMany(mappedBy = "pitch", cascade = CascadeType.PERSIST, orphanRemoval = true)
+	private List<PitchBooking> users = new ArrayList<>();
 }
