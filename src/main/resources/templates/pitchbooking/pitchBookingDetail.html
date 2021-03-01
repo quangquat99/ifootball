@@ -9,11 +9,12 @@
 
 <link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet"
 	media="screen" />
+<link th:href="@{/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css}" rel="stylesheet" />
 
 <script th:src="@{/jquery/jquery.min.js}"></script>
 <script th:src="@{/popper/popper.min.js}"></script>
 <script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
-
+<script th:src="@{/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js}"></script>
 
 </head>
 <body>
@@ -28,6 +29,20 @@
 			Pitch Booking Detail <span></span>
 		</h1>
 		<h1>Điền thông tin</h1>
+		<div class="row">
+			<div class="col-md-12">
+				<h6>Datetimepicker</h6>
+
+				<div class="form-group">
+					<div class="input-group date" id="datetimepicker">
+						<input type="text" class="form-control" /> <span
+							class="input-group-addon"><span
+							class="glyphicon-calendar glyphicon"></span></span>
+					</div>
+				</div>
+
+			</div>
+		</div>
 		<div class="col-md-auto">
 			<!-- th:action="@{/savePitchBooking}" -->
 			<form action="#" th:action="@{/savePitchBooking}" th:object="${pitchBooking}"
@@ -42,22 +57,17 @@
 					<span th:if="${#fields.hasErrors('note')}" th:errors="*{note}"></span>
 				<br>
 				
-				<!-- <label for="updated_at">Ngày cập nhật : </label> 
-				<input type="date" th:field="*{updated_at}" id="updated_at" placeholder="Ngày cập nhật">
-					<span th:if="${#fields.hasErrors('updated_at')}" th:errors="*{updated_at}"></span>
-				<br> -->
-				
 				<label for="price">Ngày : </label>
-				<input type="date" value="2016-08-01" id="date"> 
+				<input type="date" th:value="${currentDate}" id="date" >
+
 				<br>
 				
 				<label for="price">Khung giờ : </label>
-				<select id="timeKey" name="timeKey">
-					<option value="0">0</option>
-					<option value="1">1</option>
-					<option value="2">2</option>
-					<option value="100">100</option>
-				</select> 
+				<select >
+					<option value="NONE">----Select----</option>
+					<option th:each="entry : ${timeMap.entrySet()}"
+						th:value="${entry.key}" th:text="${entry.value}" th:selected="0"></option>
+				</select>
 				<br>
 				
 				<label for="price">Giá : </label>
@@ -106,7 +116,7 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-
+    	
         $("#submitPitchBooking").on("click",function() {
         	var pitch = {
         		pitchId:$('#pitchId').val(),		
@@ -134,14 +144,14 @@
                 type : 'POST',
                 data : JSON.stringify(myData),
                 processData: false,
-                contentType: "application/json",/* 
+                contentType: "application/json",
                 success : function(myData) {
-                    console.log(myData);
-                    toastr.success('Thành công', 'Lêu lêu');
+                    alert("in success ***");
+                    window.location.href = "/pitch";
                 },
                 error:function () {
                     toastr.error('Có lỗi xảy ra . Xin vui lòng thử lại', 'Inconceivable!')
-                } */
+                }
             });
         });
 

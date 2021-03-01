@@ -1,6 +1,7 @@
 package quang.ph.ifootball.controller;
 
 import java.security.Principal;
+import java.util.Calendar;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import quang.ph.ifootball.constant.PitchConstant;
 import quang.ph.ifootball.dto.PitchBookingDTO;
 import quang.ph.ifootball.entity.AppUser;
 import quang.ph.ifootball.entity.PitchBooking;
@@ -50,6 +52,9 @@ public class PitchBookingController {
 			User loginedUser = (User) ((Authentication) principal).getPrincipal();
 			appUser = appUserService.findUserAccount(loginedUser.getUsername());
 		}
+		Date currentDate = Calendar.getInstance().getTime();
+		model.addAttribute("currentDate", currentDate);
+		model.addAttribute("timeMap", PitchConstant.TIME_PITCH_BOOKING_MAP);
 		model.addAttribute("appUserId", appUser.getUserId());
 		return "pitchbooking/pitchBookingDetail";
 	}
@@ -66,8 +71,7 @@ public class PitchBookingController {
 	@RequestMapping(value = "savePitchBooking", method = RequestMethod.POST)
 	public String savePitch(@Validated @RequestBody PitchBookingDTO pitchBookingDTO) {
 		
-		
-//		pitchBookingService.bookPitch(pitchBooking);
+		pitchBookingService.bookPitch(pitchBookingDTO);
 		return "redirect:/pitch";
 	}
 }

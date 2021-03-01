@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import quang.ph.ifootball.constant.PitchConstant;
+import quang.ph.ifootball.dto.PitchBookingDTO;
 import quang.ph.ifootball.entity.PitchBooking;
 import quang.ph.ifootball.handler.PitchBookingImpl;
 
@@ -38,8 +39,9 @@ public class PitchBookingService {
 	 * pitchBookingImpl.findById(pitchId); }
 	 */
 
-	public void bookPitch(PitchBooking pitchBooking) {
-		Map<String, Date> timeMap = convert2Time(pitchBooking.getDate(), pitchBooking.getTimeKey());
+	public void bookPitch(PitchBookingDTO pitchBookingDTO) {
+		PitchBooking pitchBooking = pitchBookingDTO.getPitchBooking();
+		Map<String, Date> timeMap = convert2Time(pitchBookingDTO.getDate(), pitchBookingDTO.getTimeKey());
 		pitchBooking.setTime_start(timeMap.get("time_start"));
 		pitchBooking.setTime_finish(timeMap.get("time_finish"));
 		pitchBooking.setUser(appUserService.findById(pitchBooking.getUser().getUserId()));

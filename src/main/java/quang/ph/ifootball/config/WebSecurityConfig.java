@@ -113,6 +113,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
         //
         registry.addResourceHandler("/bootstrap/**") //
                 .addResourceLocations("classpath:/META-INF/resources/webjars/bootstrap/4.1.1/");
+        
+        registry.addResourceHandler("/bootstrap-datetimepicker/**") //
+        .addResourceLocations("classpath:/META-INF/resources/webjars/bootstrap-datetimepicker/2.4.4/");
 		
 		registry.addResourceHandler("/static/**")
 	            .addResourceLocations("classpath:/static/");

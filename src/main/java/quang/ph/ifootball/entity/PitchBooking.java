@@ -36,9 +36,6 @@ public class PitchBooking {
 	@Column(name = "time_finish", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date time_finish;
-	
-	private Date date;
-	private int timeKey;
 
 	@Column(name = "price", nullable = false)
 	private double price;
@@ -47,12 +44,10 @@ public class PitchBooking {
 	private String note;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@MapsId("user_id")
 	@JoinColumn(name = "user_id", nullable = false)
 	private AppUser user;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@MapsId("pitch_id")
 	@JoinColumn(name = "pitch_id", nullable = false)
 	private Pitch pitch;
 }
