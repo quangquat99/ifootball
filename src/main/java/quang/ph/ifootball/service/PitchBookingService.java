@@ -47,7 +47,6 @@ public class PitchBookingService {
 		pitchBooking.setUser(appUserService.findById(pitchBooking.getUser().getUserId()));
 		pitchBooking.setPitch(pitchService.findById(pitchBooking.getPitch().getPitchId()));
 		
-		
 		pitchBookingImpl.save(pitchBooking);
 	}
 
@@ -55,16 +54,14 @@ public class PitchBookingService {
 		pitchBookingImpl.delete(pitchBooking);
 	}
 	
-	public Map<String, Date> convert2Time(Date date, int timeKey) {
+	public Map<String, Date> convert2Time(String date, int timeKey) {
 		Map<String, Date> timeMap = new HashMap<String, Date>();
 		String time = PitchConstant.TIME_PITCH_BOOKING_MAP.get(timeKey);
-		DateFormat dateFormat1 = new SimpleDateFormat("yyyy-mm-dd");
-		String strDate = dateFormat1.format(date);  
 		String[] time_splits = time.split("-");
 		
 		try {
-			Date time_start= new SimpleDateFormat("yyyy-mm-dd HH:mm").parse(strDate + " " + time_splits[0].trim());
-			Date time_finish = new SimpleDateFormat("yyyy-mm-dd HH:mm").parse(strDate + " " + time_splits[1].trim());
+			Date time_start= new SimpleDateFormat("yyyy-mm-dd HH:mm").parse(date + " " + time_splits[0].trim());
+			Date time_finish = new SimpleDateFormat("yyyy-mm-dd HH:mm").parse(date + " " + time_splits[1].trim());
 			timeMap.put("time_start", time_start);
 			timeMap.put("time_finish", time_finish);
 			return timeMap;

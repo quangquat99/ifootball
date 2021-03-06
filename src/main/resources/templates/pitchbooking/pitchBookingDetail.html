@@ -9,13 +9,13 @@
 
 <link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet"
 	media="screen" />
-<link th:href="@{/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css}" rel="stylesheet" />
+
+<link th:href="@{/jquery-ui/jquery-ui.css}" rel="stylesheet" />
 
 <script th:src="@{/jquery/jquery.min.js}"></script>
 <script th:src="@{/popper/popper.min.js}"></script>
 <script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
-<script th:src="@{/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js}"></script>
-
+<script th:src="@{/jquery-ui/jquery-ui.js}"></script>
 </head>
 <body>
 
@@ -29,20 +29,7 @@
 			Pitch Booking Detail <span></span>
 		</h1>
 		<h1>Điền thông tin</h1>
-		<div class="row">
-			<div class="col-md-12">
-				<h6>Datetimepicker</h6>
-
-				<div class="form-group">
-					<div class="input-group date" id="datetimepicker">
-						<input type="text" class="form-control" /> <span
-							class="input-group-addon"><span
-							class="glyphicon-calendar glyphicon"></span></span>
-					</div>
-				</div>
-
-			</div>
-		</div>
+		
 		<div class="col-md-auto">
 			<!-- th:action="@{/savePitchBooking}" -->
 			<form action="#" th:action="@{/savePitchBooking}" th:object="${pitchBooking}"
@@ -58,8 +45,7 @@
 				<br>
 				
 				<label for="price">Ngày : </label>
-				<input type="date" th:value="${currentDate}" id="date" >
-
+				<input type="text" id="date" >
 				<br>
 				
 				<label for="price">Khung giờ : </label>
@@ -115,47 +101,51 @@
 	</div>
 
 <script type="text/javascript">
-    $(document).ready(function() {
-    	
-        $("#submitPitchBooking").on("click",function() {
-        	var pitch = {
-        		pitchId:$('#pitchId').val(),		
-        	};
-        	
-			var user = {
-				userId:$('#appUserId').val(),
-        	};
-        	
-            var pitchBooking = {
-            	pitch:pitch,
-            	user:user,
-            	note:$('#note').val(),
-            	price:$('#price').val(),
-            };
-            
-            var myData = {
-            	pitchBooking:pitchBooking,
-               	date:$('#date').val(),
-               	timeKey:$('#timeKey').val(),
-            };
-            console.log(myData);
-            $.ajax({
-                url : 'http://localhost:8080/pitchbooking/savePitchBooking',
-                type : 'POST',
-                data : JSON.stringify(myData),
-                processData: false,
-                contentType: "application/json",
-                success : function(myData) {
-                    alert("in success ***");
-                    window.location.href = "/pitch";
-                },
-                error:function () {
-                    toastr.error('Có lỗi xảy ra . Xin vui lòng thử lại', 'Inconceivable!')
-                }
-            });
-        });
 
-    });
+	$(function() {
+		$("#date").datepicker({
+			minDate : 0,
+			maxDate : "+7D",
+			dateFormat: 'yy-mm-dd',
+		});
+		$("#date").datepicker("setDate", new Date());
+	});
+	$(document).ready(function() {
+		$("#submitPitchBooking").on("click", function() {
+			var pitch = {
+				pitchId: $('#pitchId').val(),
+			};
+			var user = {
+				userId: $('#appUserId').val(),
+			};
+			var pitchBooking = {
+				pitch: pitch,
+				user: user,
+				note: $('#note').val(),
+				price: $('#price').val(),
+			};
+			var myData = {
+				pitchBooking: pitchBooking,
+				date: $('#date').val(),
+				timeKey: $('#timeKey').val(),
+			};
+			console.log(myData);
+			$.ajax({
+				url: 'http://localhost:8080/pitchbooking/savePitchBooking',
+				type: 'POST',
+				data: JSON.stringify(myData),
+				processData: false,
+				contentType: "application/json",
+				success: function(myData) {
+					alert("in success ***");
+					window.location.href = "/pitch";
+				},
+				error: function() {
+					toastr.error('Có lỗi xảy ra . Xin vui lòng thử lại', 'Inconceivable!')
+				}
+			});
+		});
+	});
 </script>
 </body>
 

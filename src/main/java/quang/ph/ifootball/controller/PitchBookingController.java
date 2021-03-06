@@ -52,8 +52,6 @@ public class PitchBookingController {
 			User loginedUser = (User) ((Authentication) principal).getPrincipal();
 			appUser = appUserService.findUserAccount(loginedUser.getUsername());
 		}
-		Date currentDate = Calendar.getInstance().getTime();
-		model.addAttribute("currentDate", currentDate);
 		model.addAttribute("timeMap", PitchConstant.TIME_PITCH_BOOKING_MAP);
 		model.addAttribute("appUserId", appUser.getUserId());
 		return "pitchbooking/pitchBookingDetail";
