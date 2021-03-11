@@ -40,7 +40,8 @@
         </div>
         <div class="form-group">
             <label>Ảnh :</label>
-            <div th:utext="${pitch.getImage()}" id="image"></div>
+            <div th:utext="${pitch.getImage()}" id="imageText"></div>
+            <img th:if="${pitch.getImage()} != null"  id='image' style="height: 100px;width: 100px" th:src="${pitch.getImage()}">
         </div>
         <div class="form-group">
             <label>SĐT :</label>
@@ -59,7 +60,12 @@
         
 		
 	</div>
-
+<script type="text/javascript">
+    $(document).ready(function() {
+    	
+    	
+    });
+</script>
 </body>
 
 </html>

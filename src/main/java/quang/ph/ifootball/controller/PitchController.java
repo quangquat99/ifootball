@@ -12,18 +12,25 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import quang.ph.ifootball.entity.AppUser;
 import quang.ph.ifootball.entity.Pitch;
 import quang.ph.ifootball.service.AppUserService;
 import quang.ph.ifootball.service.PitchService;
+import quang.ph.ifootball.service.StoreFileService;
 
 @Controller
 public class PitchController {
+	
+	@Autowired
+	private StoreFileService storeFileService;
 	
 	@Autowired
 	private PitchService pitchService;
@@ -101,7 +108,7 @@ public class PitchController {
 	}
 	
 	
-	/*
+	
 	@RequestMapping(value = "save", method = RequestMethod.POST)
 	public String savePitch(@Validated @RequestBody Pitch pitch) {
 		Date date = Calendar.getInstance().getTime();
@@ -110,8 +117,9 @@ public class PitchController {
 		pitchService.save(pitch);
 		return "redirect:/pitch";
 	}
-	*/
 	
+	
+	/*
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public String savePitch(Model model, Principal principal, @Validated @ModelAttribute("pitch") Pitch pitch) {
 		Date date = Calendar.getInstance().getTime();
@@ -119,5 +127,23 @@ public class PitchController {
 		
 		pitchService.save(pitch);
 		return "redirect:/pitch";
+	}
+	*/
+	
+	@PostMapping("/upload")
+	@ResponseBody
+	public String singleFileUpload(@RequestParam("file") MultipartFile file) {
+		String fileName = "";
+		String linkFile = "http://localhost:8080/link/";
+		try {
+			if (file.isEmpty()) {
+				throw new Exception();
+			}
+			fileName = storeFileService.store(file);
+			linkFile += fileName;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return linkFile;
 	}
 }

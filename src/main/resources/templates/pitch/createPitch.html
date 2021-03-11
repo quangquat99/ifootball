@@ -48,8 +48,12 @@
 				<br>
 				
 				<label for="image">Ảnh : </label> 	
-				<input type="text" th:field="*{image}" id="image" placeholder="Ảnh">
-					<span th:if="${#fields.hasErrors('image')}" th:errors="*{image}"></span>
+					<!-- <input type="text" th:field="*{image}" id="image" placeholder="Ảnh">
+					<span th:if="${#fields.hasErrors('image')}" th:errors="*{image}"></span> -->
+					
+					<input type="file" th:field="*{image}" name="file" id='uploadImage' /><br/><br/>
+           			<img th:if="${pitch.getImage()} != null"  id='image' style="height: 100px;width: 100px" th:src="${pitch.getImage()}">
+           			<img th:if="${pitch.getImage()} == null"  id='image' style="height: 100px;width: 100px;display: none;" >
 				<br>
 					
 				<label for="phonenumber">SĐT : </label> 
@@ -80,9 +84,27 @@
 		</div>
 	</div>
 	
-	<script type="text/javascript">
+<script type="text/javascript">
     $(document).ready(function() {
+        
+    	$("#uploadImage").on("change",function() {
+            var formData = new FormData();
+            formData.append('file', $('#uploadImage')[0].files[0]);
+            $.ajax({
+            	url : 'http://localhost:8080/upload',
+                type : 'POST',
+                data : formData,
+                processData: false,
+                contentType: false,
+                success : function(data) {
+                    console.log(data);
+                    $("#image").attr("src", data);
+                    $("#image").css("display","block");
 
+                }
+            });
+        });
+    	
         $("#submitPitch").on("click",function() {
             var pitch = {
                 name:$('#name').val(),
@@ -90,7 +112,7 @@
                 quantity:$('#quantity').val(),
                 description:$('#description').val(),
                 address:$('#address').val(),
-                image:$('#image').val(),
+                image:$("#image").attr('src'),
                 phonenumber:$('#phonenumber').val(),
                 cost:$('#cost').val(),
             };
@@ -103,8 +125,8 @@
                 processData: false,
                 contentType: "application/json",
                 success : function(data) {
-                    console.log(data);
-                    toastr.success('Tạo sân mới thành công', 'Lêu lêu');
+                	alert("Tạo mới thành công");
+                    window.location.href = "http://localhost:8080/pitch";
                 },
                 error:function () {
                     toastr.error('Có lỗi xảy ra . Xin vui lòng thử lại', 'Inconceivable!')
