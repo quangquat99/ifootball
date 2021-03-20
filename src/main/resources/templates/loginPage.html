@@ -7,33 +7,164 @@
 <link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet"
 	media="screen" />
 
-<link th:href="@{/static/a.css}" rel="stylesheet" type="text/css" />
-<link th:href="@{/static/test/b.css}" rel="stylesheet" type="text/css" />
+<link th:href="@{/static/header.css}" rel="stylesheet" type="text/css" />
+<link th:href="@{/static/footer.css}" rel="stylesheet" type="text/css" />
+<link th:href="@{/static/loginPage/login.css}" rel="stylesheet" type="text/css" />
+
 
 <script th:src="@{/jquery/jquery.min.js}"></script>
 <script th:src="@{/popper/popper.min.js}"></script>
 <script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
 </head>
 <body>
-	<!-- Include _menu.html -->
-	<th:block th:include="/_menu"></th:block>
 
-	<div class="btn-group">
-		<button type="button" class="btn btn-success">This is a
-			success button</button>
-		<button type="button" class="btn btn-warning">This is a
-			warning button</button>
-		<button type="button" class="btn btn-danger">This is a danger
-			button</button>
+	<!-- Include _menu.html -->
+    <th:block th:include="/_menu"></th:block>
+
+
+	<div class="wrapper">
+		<div class="container content">
+
+			<div class="row">
+				<div class="col-md-6">
+					<div class="fp-banner-text">
+						<h3 class="dr-h3">QUẢN LÝ SÂN, TÌM ĐỐI GIAO LƯU ĐẶT SÂN TRỰC
+							TUYẾN</h3>
+						<div class="description">
+
+							<ul class="menu-list-info">
+								<li>Dễ dàng tìm kiếm sân bóng quanh khu vực</li>
+								<li>Nhanh chóng, thuận tiện và uy tín khi đặt sân trực
+									tuyến</li>
+								<li>Hoàn toàn miễn phí!</li>
+								<li>Tìm đối giao lưu, kết bạn dễ dàng</li>
+								<li>Quản lý sân, lịch biểu hiệu quả, tiết kiệm tối đa thời
+									gian</li>
+								<li>Giảm thiểu tối đa tình trạng trống sân, cháy đối!</li>
+							</ul>
+						</div>
+
+					</div>
+					<br>
+					<button type="submit" class="btn btn-info">Xem chi tiết</button>
+
+				</div>
+				<div class="col-md-1"></div>
+				<div class="col-md-5">
+					<div class="login-form">
+						<div class="main-div">
+							<div class="panel">
+								<p>Đăng nhập bằng tài khoản và mật khẩu của bạn</p>
+							</div>
+							<form id="Login" name='f' th:action="@{/j_spring_security_check}" method='POST'>
+								<!-- /login?error=true -->
+								<div th:if="${#request.getParameter('error') == 'true'}"
+									style="color: red; margin: 10px 0px;">
+									Login Failed!!!<br /> Reason : <span
+										th:if="${#session!= null and #session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION') != null}"
+										th:utext="${#session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION').message}">
+										Static summary </span>
+							
+								</div>
+								<div class="form-group">
+
+
+									<input type='text' name='username' class="form-control" id="username"
+										placeholder="Username">
+
+								</div>
+
+								<div class="form-group">
+
+									<input type="password" class="form-control" id="password" name='password'
+										placeholder="Password">
+
+								</div>
+								<div class="forgot">
+									<a href="reset.html">Quên mật khẩu</a>
+								</div>
+								<p class="rememberMe" >Remember Me? &nbsp;<input type="checkbox" name="remember-me" /></p>
+								
+								<div class="row">
+									<div class="col-md-6">
+										<button type="submit" class="btn btn-primary" name="submit">Đăng
+											nhập</button>
+									</div>
+									<div class="col-md-6">
+										<button type="submit" class="btn btn-primary">Đăng ký</button>
+									</div>
+
+								</div>
+							</form>
+						</div>
+						<br>
+						<p class="botto-text">
+							Bằng cách nhấn vào nút "Đăng ký", Bạn đồng ý với <strong>điều
+								khoản sử dụng</strong> và <strong>chính sách bảo mật</strong> của chúng
+							tôi.
+						</p>
+					</div>
+				</div>
+			</div>
+
+		</div>
 	</div>
 
+
+
+
+	<!-- </content> -->
+	<!-- footer -->
+
+
+	<footer id="footer">
+
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4">
+					<div></div>
+					<h5>Hệ thống cửa hàng</h5>
+					<ul>
+						<li>123 Cầu Giấy</li>
+						<li>123 Hồ Tùng Mậu</li>
+						<li>5 Xuân Thủy</li>
+						<li>4 Phạm Văn Đồng</li>
+					</ul>
+				</div>
+				<div class="col-md-4">
+					<h5>Chính sách và quy định chung</h5>
+					<ul>
+						<li>Hướng dẫn mua hàng</li>
+						<li>Hình thức thanh toán</li>
+						<li>Quy định về bảo mật thông tin</li>
+						<li>Chính sách và quy trình xử lý khiếu nại</li>
+						<li>Chính sách bảo hành</li>
+					</ul>
+				</div>
+				<div class="col-md-4">
+					<h5>Địa chỉ</h5>
+					<p>IFOOTBALL - WEB bóng đá hàng đậu Việt Nam</p>
+					<ul>
+						<li>Facebook: www.facebook.com/360boutique.hn</li>
+						<li>Điện thoại: (024) 2 0219 555</li>
+						<li>Hotline: 0973 285 886</li>
+						<li>Email: 360boutique.vn@gmail.com</li>
+						<li>Website: https://360boutique.vn/</li>
+					</ul>
+
+				</div>
+			</div>
+		</div>
+
+	</footer>
+
 	<h1>Login</h1>
-	
+
 	<br>
-		<a type="button" th:href="@{/addAppUser}" class="btn pull-left"><i
+	<a type="button" th:href="@{/addAppUser}" class="btn pull-left"><i
 		class="fas fa-plus-circle"></i>Tạo user</a>
-	 <br>
-	  
+	<br>
+
 	<!-- /login?error=true -->
 	<div th:if="${#request.getParameter('error') == 'true'}"
 		style="color: red; margin: 10px 0px;">

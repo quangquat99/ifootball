@@ -1,0 +1,12 @@
+/* Footer */
+
+#footer {
+	background: url(../image/pic_ifootball/pt.jpg) repeat top left;
+	padding-top: 3rem;
+	color: #999;
+	font-size: 0.8rem;
+}
+.logo-footer {
+	max-width: 100%;
+	height: 3rem;
+}
