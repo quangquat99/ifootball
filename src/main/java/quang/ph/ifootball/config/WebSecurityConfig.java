@@ -67,7 +67,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
 				// Submit URL của trang login
 				.loginProcessingUrl("/j_spring_security_check") // Submit URL
 				.loginPage("/login")//
-				.defaultSuccessUrl("/userAccountInfo")//
+				.defaultSuccessUrl("/userInfo")//
 				.failureUrl("/login?error=true")//
 				.usernameParameter("username")//
 				.passwordParameter("password")
@@ -116,6 +116,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
         
         registry.addResourceHandler("/jquery-ui/**") //
         .addResourceLocations("classpath:/META-INF/resources/webjars/jquery-ui/1.12.1/");
+        
+        registry.addResourceHandler("/fontawesome/**") //
+        .addResourceLocations("classpath:/META-INF/resources/webjars/font-awesome/5.15.2/");
 		
 		registry.addResourceHandler("/static/**")
 	            .addResourceLocations("classpath:/static/");

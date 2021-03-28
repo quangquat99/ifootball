@@ -14,7 +14,7 @@ import quang.ph.ifootball.utils.WebUtils;
 @Controller
 public class MainController {
  
-    @RequestMapping(value = { "/", "/welcome" }, method = RequestMethod.GET)
+    @RequestMapping(value = { "/welcome" }, method = RequestMethod.GET)
     public String welcomePage(Model model) {
         model.addAttribute("title", "Welcome");
         model.addAttribute("message", "This is welcome page!");
@@ -32,7 +32,7 @@ public class MainController {
         return "adminPage";
     }
  
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    @RequestMapping(value = { "/", "/login" }, method = RequestMethod.GET)
     public String loginPage(Model model) {
  
         return "loginPage";

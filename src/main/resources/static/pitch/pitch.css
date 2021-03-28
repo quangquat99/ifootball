@@ -1,0 +1,37 @@
+
+/*Content*/
+.wrapper{
+	padding-top: 5rem;
+	background-color : #f5f5f5;
+	z-index: 0;
+}
+
+.wrapper h1, h2, h3, h4, h5, i{
+	color: #43a047;
+}
+
+.wrapper a{
+	color: black;
+}
+
+.wrapper a:hover {
+	color: #43a047;
+}
+
+.breadcrumb {
+	background-color : #f5f5f5;
+	margin: 0rem;
+	padding: 0rem 0.7rem 0rem 0rem;
+}
+.search-group label{
+	padding-top: 0.375rem;
+	text-align: right;
+}
+.card {
+	flex-direction: row;
+}
+
+.card-body {
+	float: left;
+	padding-left: 2rem;
+}

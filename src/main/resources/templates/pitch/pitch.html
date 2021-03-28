@@ -3,12 +3,15 @@
 <head>
 <title th:utext="${title}"></title>
 <meta charset="UTF-8">
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css"
-	rel="stylesheet" type="text/css" />
-
+<!-- See configuration in WebMvConfig.java -->
 <link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet"
 	media="screen" />
+
+<link th:href="@{/static/header.css}" rel="stylesheet" type="text/css" />
+<link th:href="@{/static/footer.css}" rel="stylesheet" type="text/css" />
+<link th:href="@{/static/pitch/pitch.css}" rel="stylesheet" type="text/css" />
+<link th:href="@{/fontawesome/css/all.css}" rel="stylesheet" type="text/css" />
+
 
 <script th:src="@{/jquery/jquery.min.js}"></script>
 <script th:src="@{/popper/popper.min.js}"></script>
@@ -17,6 +20,124 @@
 <body>
 	<!-- Include _menu.html -->
 	<th:block th:include="/_menu"></th:block>
+
+
+	<header id="header" class="">
+
+		<!-- may tinh -->
+		<div class="menu d-none d-lg-block">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-md-2 trai">
+						<a href="#"><img id="img-360"
+							src="image/pic_ifootball/logo.png" alt=""></a>
+
+					</div>
+
+					<div class="col-md-10 phai">
+						<ul class="menu-link">
+							<li class=""><a href="#" class="">Sân bóng</a></li>
+							<li class="nav-item"><a href="#" class="">Tìm đối</a></li>
+							<li class=""><a href="#" class="">Đăng ký/Đăng nhập</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+
+
+	<!-- content -->
+
+	<div class="wrapper">
+		<div class="container content">
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+					<li class="breadcrumb-item active" aria-current="page">Sân
+						bóng</li>
+				</ol>
+			</nav>
+			<hr>
+			<div class="row">
+				<h5>
+					<i class="fas fa-futbol"></i> Sân bóng
+				</h5>
+			</div>
+			<br>
+			<div class="form-group row search-group">
+
+				<div class="col-md-3">
+					<div class="row">
+						<label for="area-input" class="col-md-5"><i
+							class="fas fa-map-marker-alt"></i> Khu vực</label> <select
+							class="col-md-7 form-control" aria-label="search-area"
+							id="area-input">
+							<option selected>Long Biên</option>
+							<option value="1">One</option>
+							<option value="2">Two</option>
+							<option value="3">Three</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="row">
+						<label for="date-input" class="col-md-4"><i
+							class="far fa-calendar-check"></i> Ngày</label> <input
+							class="col-md-8 form-control" type="date" value="2011-08-19"
+							id="date-input">
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="row">
+						<label for="area-input" class="col-md-5"><i
+							class="far fa-clock"></i> Thời gian</label> <select
+							class="col-md-7 form-control" aria-label="search-time"
+							id="time-input">
+							<option selected>12:00-13:00</option>
+							<option value="1">One</option>
+							<option value="2">Two</option>
+							<option value="3">Three</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<button type="submit" class="btn btn-primary">Tìm kiếm</button>
+				</div>
+
+
+			</div>
+			<div class="row">
+				<div class="col-12 col-md-9 my-3">
+					<div class="row  card">
+						<div class="col-4">
+							<img src="image/pic_ifootball/sanbong.jpg" class="card-img-top " alt="">
+						</div>
+						<div class="col-8 card-body">
+							<h5 class="card-title">Sân bóng 1 Phạm Văn Đồng</h5>
+							<p class="card-text">
+								<i class="fas fa-map-marked-alt"></i> 112 CT Phạm Văn Dồng, Mai
+								Dịch, Cầu Giấy
+							</p>
+							<hr>
+							<p class="card-text">
+								<strong>Còn sân</strong>
+							</p>
+							<h5 class="card-title">
+								<i class="fas fa-phone-square-alt"></i> 0384221942
+							</h5>
+							<p class="">
+								<a href="#" class="btn btn-info">Xem</a> <a href="#"
+									class="btn btn-warning">Đặt sân</a>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
 
 	<h2>Pitch Page</h2>
 	<b>This is pitch page!</b>
