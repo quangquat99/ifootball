@@ -109,26 +109,27 @@
 			</div>
 			<div class="row">
 				<div class="col-12 col-md-9 my-3">
-					<div class="row  card">
+					<div class="row  card" th:each="pitch, state : ${listPitch}">
+						<input type="hidden" th:value="${pitch.pitchId}" />
 						<div class="col-4">
-							<img src="image/pic_ifootball/sanbong.jpg" class="card-img-top " alt="">
+							<!-- <img src="image/pic_ifootball/sanbong1.jpg" alt=""> -->
+							<img class="card-img-top" th:if="${pitch.getImage()} != null"  id='image' th:src="${pitch.getImage()}">
 						</div>
 						<div class="col-8 card-body">
-							<h5 class="card-title">Sân bóng 1 Phạm Văn Đồng</h5>
+							<h5 class="card-title" th:utext="${pitch.name}"></h5>
 							<p class="card-text">
-								<i class="fas fa-map-marked-alt"></i> 112 CT Phạm Văn Dồng, Mai
-								Dịch, Cầu Giấy
+								<i class="fas fa-map-marked-alt"></i>&nbsp;&nbsp;<span th:utext="${pitch.address}"></span>
 							</p>
 							<hr>
 							<p class="card-text">
 								<strong>Còn sân</strong>
 							</p>
 							<h5 class="card-title">
-								<i class="fas fa-phone-square-alt"></i> 0384221942
+								<i class="fas fa-phone-square-alt"></i>&nbsp;&nbsp;<span th:utext="${pitch.phonenumber}"></span>
 							</h5>
 							<p class="">
-								<a href="#" class="btn btn-info">Xem</a> <a href="#"
-									class="btn btn-warning">Đặt sân</a>
+								<a th:href="@{/detailpitch?id={id}(id=${pitch.pitchId})}" class="btn btn-info">Xem</a> 
+								<a th:href="@{/pitchbooking/pitchSchedule?id={id}(id=${pitch.pitchId})}" class="btn btn-warning">Đặt sân</a>
 							</p>
 						</div>
 					</div>
@@ -137,7 +138,8 @@
 		</div>
 	</div>
 
-
+	<!-- Include /footer.html -->
+    <th:block th:include="/footer"></th:block>
 
 	<h2>Pitch Page</h2>
 	<b>This is pitch page!</b>

@@ -29,9 +29,17 @@
 }
 .card {
 	flex-direction: row;
+	margin-top : .35rem;
 }
 
 .card-body {
 	float: left;
 	padding-left: 2rem;
+}
+
+.card-img-top {
+	padding : .35rem;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
 }

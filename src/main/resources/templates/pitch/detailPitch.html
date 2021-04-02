@@ -6,12 +6,89 @@
 <link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet"
 	media="screen" />
 
+<link th:href="@{/static/header.css}" rel="stylesheet" type="text/css" />
+<link th:href="@{/static/footer.css}" rel="stylesheet" type="text/css" />
+<link th:href="@{/static/pitch/detailpitch.css}" rel="stylesheet" type="text/css" />
+<link th:href="@{/fontawesome/css/all.css}" rel="stylesheet" type="text/css" />
+
+
 <script th:src="@{/jquery/jquery.min.js}"></script>
 <script th:src="@{/popper/popper.min.js}"></script>
 <script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
 
 </head>
 <body>
+
+	<!-- Include _menu.html -->
+    <th:block th:include="/_menu"></th:block>
+    
+	<!-- content -->
+
+	<div class="wrapper">
+		<div class="container content">
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+					<li class="breadcrumb-item active" aria-current="page">Sân bóng</li>
+				</ol>
+			</nav>
+			<hr>
+			<div class="row">
+				<div class="col-8">
+					<div class="card box-shadow">
+						<div class="card-header">
+							<h5 th:utext="${pitch.getName()}" id="name"><i class="fas fa-futbol"></i></h5>
+							<p><i class="fa-map-marker-alt fas mr-2"></i> <span th:utext="${pitch.getAddress()}" id="address"></span></p>
+							<p><i class="fa fa-phone mr-2"></i><span th:utext="${pitch.getPhonenumber()}" id="phonenumber"></span> </p>
+						</div>
+					</div>
+					<div class="text-block">
+						<div class="subtitle">Mô tả thông tin kèm theo</div>
+						<p></p>
+						<p></p>
+						<p></p>
+					</div>
+					<div class="text-block">
+						<div class="subtitle">Dịch vụ - tiện ích</div>
+						<br>
+						<p><i class="fas fa-exclamation-circle"></i>&nbsp;&nbsp;<span th:utext="${pitch.getDescription()}" id="description"></span> </p>
+					</div>
+					<div class="text-block">
+						<div class="subtitle">Bản đồ</div>
+						<br>
+						Bản đồ
+					</div>
+					<div class="text-block">
+						<div class="subtitle">Hình ảnh</div>
+						<br>
+						<img th:if="${pitch.getImage()} != null"  id='image' th:src="${pitch.getImage()}">
+					</div>
+					
+				</div>
+				<div class="col-4">
+					<div class="card box-shadow">
+						<div class="card-header">
+							<h5>Liên hệ</h5>
+						</div>
+						<div class="card-body text-muted">
+							<p> <i class="fa-map-marker-alt fas mr-2"></i> <span th:utext="${pitch.getAddress()}" id="address2"></span> </p>
+							<p> <i class="fa fa-phone mr-2"></i><span th:utext="${pitch.getPhonenumber()}" id="phonenumber2"></span> </p>
+							<hr>
+							<button type="button" class="btn btn-primary">Đặt sân</button>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+			<br>
+			
+		</div>
+	</div>
+	
+	<!-- Include _menu.html -->
+    <th:block th:include="/footer"></th:block>
+    
+    
 	<div class="col-3"></div>
 	<div class="container col-6">
 		<h1>Chi tiết sân <span></span></h1>
